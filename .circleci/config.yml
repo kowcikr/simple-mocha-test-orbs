@@ -11,6 +11,7 @@ workflows:
       - hold-functional:
           type: approval      
       - demo-orbs/run-e2e-tests:
-          requires: hold-functional
           notify_success: true
           suite: functional
+          requires: 
+            - hold-functional
