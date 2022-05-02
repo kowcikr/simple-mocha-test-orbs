@@ -5,6 +5,8 @@ const config = {
     bin: ['bin/*.js'],
     src: ['lib/**/*.js', '*.js'],
     functional: ['test/functional/test1.js'],
+    sanity: ['test/functional/test1.js'],
+
   },
   timeout: 600000,
 };
@@ -26,9 +28,31 @@ module.exports = function (grunt) {
       },
       functional: {
         options: {
+          reporter: 'mochawesome',
+          reporterOptions: {
+            reportFilename: 'functional-test-report.html',
+            code: false,
+            timestamp: 'dd-mm-yyyy-hh-mm-ss',
+            quiet: true,
+          },
           timeout: config.timeout,
           require: config.require,
           fgrep: '[#Functional]',
+        },
+        src: config.targets.functional,
+      },
+      sanity: {
+        options: {
+          reporter: 'mochawesome',
+          reporterOptions: {
+            reportFilename: 'functional-test-report.html',
+            code: false,
+            timestamp: 'dd-mm-yyyy-hh-mm-ss',
+            quiet: true,
+          },
+          timeout: config.timeout,
+          require: config.require,
+          fgrep: '[#Sanity]',
         },
         src: config.targets.functional,
       },
@@ -57,6 +81,6 @@ module.exports = function (grunt) {
 
   // Default task.
   grunt.registerTask('functional', ['mochaTest:functional']);
-  grunt.registerTask('sanity', ['mochaTest:functional']);
+  grunt.registerTask('sanity', ['mochaTest:sanity']);
 
 };
