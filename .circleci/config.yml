@@ -8,7 +8,8 @@ workflows:
     jobs:
       - demo-orbs/run-e2e-tests:
           notify_success: true
-      - hold-functional-dev:
-          type: approval
+      - hold-functional:
+          type: approval      
       - demo-orbs/run-e2e-tests:
           notify_success: true
+          suite: functional
